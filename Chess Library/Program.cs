@@ -22,7 +22,26 @@ namespace Chess_Library
         /// <returns>Whether the move is valid or not.</returns>
         public bool Move(string move)
         {
-            if (!nameinmoves.Contains(move[0]))
+            switch(move[0].ToString())
+            {
+                case "K":
+                    KingMove(move);
+                    break;
+                case "N":
+
+                default:
+                    PawnMove(move);
+                    break;
+            }
+            bool KnightMove()
+            {
+
+            }
+            bool KingMove(string move)
+            {
+
+            }
+            bool PawnMove(string move)
             {
 
             }
