@@ -88,3 +88,4 @@ namespace Chess_Library
     }
 }
 
+// & "C:\\Program Files\GitHub Desktop\resources\app\git\cmd\git.exe" config --global http.sslbackend schannel
