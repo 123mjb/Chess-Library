@@ -28,12 +28,25 @@ namespace Chess_Library
                     KingMove(move);
                     break;
                 case "N":
-
+                    KnightMove(move);
+                    break;
                 default:
                     PawnMove(move);
                     break;
             }
-            bool KnightMove()
+            bool BishopMove(string move)
+            {
+
+            }
+            bool RookMove(string move)
+            {
+
+            }
+            bool QueenMove(string move)
+            {
+
+            }
+            bool KnightMove(string move)
             {
 
             }
@@ -43,10 +56,34 @@ namespace Chess_Library
             }
             bool PawnMove(string move)
             {
+                if (move.Contains(Convert.ToChar("x")))
+                {
+                    string[] movesplit = move.Split("x");
+                }
+                else
+                {
+                    if(move.Length > 2)
+                    {
 
+                    }
+                    else
+                    {
+
+                    }
+                }
+                if (move.Length > 2)
+                {
+                    if (move.Contains(Convert.ToChar("x")))
+                    {
+                        string[] movesplit = move.Split("x");
+                    }
+                }
+                else
+                {
+
+                }
             }
         }
-
     }
 }
 
