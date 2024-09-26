@@ -6,6 +6,7 @@ namespace Chess_Library
         private bool window;
         private string[] boardLayout;
         private readonly string nameinmoves = "KkNnQqRrBb";
+
         public ChessBot(string[] pieces, bool testinterface = false)
         {
             if (pieces.Length != 64)
@@ -68,7 +69,7 @@ namespace Chess_Library
                     }
                     else
                     {
-
+                        if
                     }
                 }
                 if (move.Length > 2)
