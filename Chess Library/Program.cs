@@ -1,15 +1,15 @@
-﻿
-
-using System.Reflection.Metadata.Ecma335;
-using System.Runtime.CompilerServices;
-
-namespace Chess_Library
+﻿namespace Chess_Library
 {
-    internal class ChessBot{
+    internal class ChessBot
+    {
         private bool window;
         private string[] boardLayout;
         private bool PlayerMove;
-
+        private string[][] pieces = new string[][] { new string[] { "P", "p" }, new string[] { "K", "k" }, new string[] { "Q", "q" }, new string[] { "N", "n" }, new string[] { "B", "b" }, new string[] { "R", "r" } };
+        string getmovepiece(int pieceNum)
+        {
+            return pieces[pieceNum][PlayerMove ? 0 : 1];
+        }
         public ChessBot(string[] pieces, bool testinterface = false)
         {
             PlayerMove = false;
@@ -28,7 +28,7 @@ namespace Chess_Library
         public bool Move(string move)
         {
 
-            switch(move[0].ToString())
+            switch (move[0].ToString())
             {
                 case "K":
                     KingMove(move);
@@ -86,7 +86,8 @@ namespace Chess_Library
             }
             bool PawnMove(string move)
             {
-                if (move.Contains(Convert.ToChar("="))){
+                if (move.Contains(Convert.ToChar("=")))
+                {
                     if (move.Contains(Convert.ToChar("x")))
                     {
                         string[] movesplit = move.Split("x");
@@ -99,27 +100,30 @@ namespace Chess_Library
                         }
                         else
                         {
-                            if (Convert.ToInt32(move[2]) > 1) 
-                            { 
-                                if (boardLayout[num(move[0].ToString()) + Convert.ToInt32(move[2])-1] == "P") 
-                                {
-                                    boardLayout[num(move[0].ToString()) + Convert.ToInt32(move[2]) - 1] = "";
-                                    boardLayout[num(move[0].ToString()) + Convert.ToInt32(move[2])] = "P";
-                                } 
-                            } 
-                            else 
-                            { 
-                                return false; 
+                            if (Convert.ToInt32(move[2]) > 1)
+                            {
+                                return MoveCheckerAndDoer(8*num(move[0].ToString()) + Convert.ToInt32(move[2]) - 1, num(move[0].ToString()) + Convert.ToInt32(move[2]) - 1, 0,false);
+                            }
+                            else
+                            {
+                                return false;
                             }
                         }
                     }
                 }
-                
-                if (move.Length > 2)
+
+            }
+            bool MoveCheckerAndDoer(int from, int to, int piecenum, bool taking)
+            {
+                if (!taking)
                 {
-                    if (move.Contains(Convert.ToChar("x")))
+                    if (boardLayout[from] == getmovepiece(piecenum))
                     {
-                        string[] movesplit = move.Split("x");
+                        if (boardLayout[to] == "")
+                        {
+                            boardLayout[from] = "";
+                            boardLayout[to] = getmovepiece(0);
+                        }
                     }
                 }
                 else
@@ -127,6 +131,7 @@ namespace Chess_Library
 
                 }
             }
+
         }
     }
 }

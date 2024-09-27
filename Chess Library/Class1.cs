@@ -1,5 +1,6 @@
-﻿string[] aaaa = new string[63];
-Array.Fill(aaaa, "a");
+﻿string[] aaaa = new string[64];
+Array.Fill(aaaa, "");
+aaaa[2] = "P";
 
 Chess_Library.ChessBot Bot = new Chess_Library.ChessBot(aaaa,false);
 
@@ -11,8 +12,4 @@ else
 {
     Console.WriteLine("Move was not successful");
 }*/
-string b = "a2";
-if (b[2] > 1)
-{
-    Console.WriteLine("Move was successful");
-}
+Bot.Move("a3");
