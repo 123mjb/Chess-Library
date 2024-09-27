@@ -5,7 +5,7 @@
         private bool window;
         private string[] boardLayout;
         private bool PlayerMove;
-        private string[][] pieces = new string[][] { new string[] { "P", "p" }, new string[] { "K", "k" }, new string[] { "Q", "q" }, new string[] { "N", "n" }, new string[] { "B", "b" }, new string[] { "R", "r" } };
+        private string[][] pieces = new string[6][] { new string[2] { "P", "p" }, new string[2] { "K", "k" }, new string[2] { "Q", "q" }, new string[2] { "N", "n" }, new string[2] { "B", "b" }, new string[2] { "R", "r" } };
         string getmovepiece(int pieceNum)
         {
             return pieces[pieceNum][PlayerMove ? 0 : 1];
@@ -96,7 +96,10 @@
                     {
                         if (move.Length > 2)
                         {
+                            if (move.Contains(Convert.ToChar("=")))
+                            {
 
+                            }
                         }
                         else
                         {
@@ -124,7 +127,9 @@
                             boardLayout[from] = "";
                             boardLayout[to] = getmovepiece(0);
                         }
+                        else { return false; }
                     }
+                    else { return false; }
                 }
                 else
                 {
