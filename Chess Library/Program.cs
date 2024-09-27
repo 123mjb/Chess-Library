@@ -45,21 +45,21 @@ namespace Chess_Library
                 switch (ForR)
                 {
                     case "a":
-                        return 1;
+                        return 0;
                     case "b":
-                        return 2;
+                        return 1;
                     case "c":
-                        return 3;
+                        return 2;
                     case "d":
-                        return 4;
+                        return 3;
                     case "e":
-                        return 5;
+                        return 4;
                     case "f":
-                        return 6;
+                        return 5;
                     case "g":
-                        return 7;
+                        return 6;
                     case "h":
-                        return 8;
+                        return 7;
                     default:
                         return -1;
                 }
@@ -99,7 +99,18 @@ namespace Chess_Library
                         }
                         else
                         {
-                            if (Convert.ToInt32(move[2]) > 1) { if (boardLayout[])}
+                            if (Convert.ToInt32(move[2]) > 1) 
+                            { 
+                                if (boardLayout[num(move[0].ToString()) + Convert.ToInt32(move[2])-1] == "P") 
+                                {
+                                    boardLayout[num(move[0].ToString()) + Convert.ToInt32(move[2]) - 1] = "";
+                                    boardLayout[num(move[0].ToString()) + Convert.ToInt32(move[2])] = "P";
+                                } 
+                            } 
+                            else 
+                            { 
+                                return false; 
+                            }
                         }
                     }
                 }
