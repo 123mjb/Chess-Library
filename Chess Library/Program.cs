@@ -107,7 +107,7 @@
             bool PawnMove(string move)
             {
                 int from, to, piecenum,topiecenum;
-                bool take;
+                bool take=false;
                 if (move.Contains(Convert.ToChar("="))){
                     topiecenum = piecetonum(move.Split('=')[1]);
                 }
@@ -115,7 +115,13 @@
                     string[] sects = move.Split('x');
                     sects[1] = sects[1].Split('=')[0];
                     take = true;
+                    to = 8*num(sects[0])+Convert.ToInt32(sects[1]);
+                    if (sects[0] == "")
+                    {
+
+                    }
                 }
+                
 
 
 
