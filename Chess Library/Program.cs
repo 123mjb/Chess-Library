@@ -28,7 +28,7 @@
         }
         string getmovepiece(int pieceNum)
         {
-            return pieceNum[pieceNum][PlayerMove ? 0 : 1];
+            return pieces[pieceNum][PlayerMove ? 0 : 1];
         }
         public ChessBot(string[] pieces, bool testinterface = false)
         {
