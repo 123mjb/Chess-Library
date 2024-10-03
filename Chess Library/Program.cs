@@ -6,9 +6,9 @@
         private string[] boardLayout;
         private bool PlayerMove;
         private string[][] pieces = new string[6][] { new string[2] { "P", "p" }, new string[2] { "K", "k" }, new string[2] { "Q", "q" }, new string[2] { "N", "n" }, new string[2] { "B", "b" }, new string[2] { "R", "r" } };
-        int piecetonum(string peice)
+        int piecetonum(char peice)
         {
-            switch (peice.ToLower())
+            switch (peice.ToString().ToLower())
             {
                 case "p":
                     return 1;
@@ -25,6 +25,10 @@
                 default : return 0;
 
             }
+        }
+        string numberToNot(int numloc)
+        {
+
         }
         string getmovepiece(int pieceNum)
         {
@@ -60,9 +64,9 @@
                     PawnMove(move);
                     break;
             }
-            static int num(string ForR)
+            static int num(char ForR)
             {
-                switch (ForR)
+                switch (ForR.ToString())
                 {
                     case "a":
                         return 0;
@@ -109,23 +113,33 @@
                 int from, to, piecenum,topiecenum;
                 bool take=false;
                 if (move.Contains(Convert.ToChar("="))){
-                    topiecenum = piecetonum(move.Split('=')[1]);
+                    topiecenum = piecetonum(move.Split('=')[1][0]);
                 }
                 if (move.Contains(Convert.ToChar("x"))) {
                     string[] sects = move.Split('x');
                     sects[1] = sects[1].Split('=')[0];
                     take = true;
-                    to = 8*num(sects[0])+Convert.ToInt32(sects[1]);
-                    if (sects[0] == "")
+                    to = 8*num(sects[1][0])+Convert.ToInt32(sects[1][1]);
+                    if (Convert.ToInt32(sects[1][1]) > 0)
                     {
+                        if (sects[0] == "")
+                        {
+                            if (to-8 + (PlayerMove?-1:1)>0 & boardLayout[to - 8 + (PlayerMove ? -1 : 1)] == getmovepiece(0))
+                            {
 
+                            }
+                            if (to + 8 + (PlayerMove ? -1 : 1) > 0 & boardLayout[to + 8 + (PlayerMove ? -1 : 1)] == getmovepiece(0))
+                            {
+
+                            }
+                        }
                     }
                 }
                 
 
 
 
-                return MoveCheckerAndDoer()
+                return MoveCheckerAndDoer(take)
                 //if (move.Contains(Convert.ToChar("="))){if (move.Contains(Convert.ToChar("x"))){string[] movesplit = move.Split("x");}else{if (move.Length > 2){}else{if (Convert.ToInt32(move[2]) > 1){return MoveCheckerAndDoer(8*num(move[0].ToString()) + Convert.ToInt32(move[2]) - 1, num(move[0].ToString()) + Convert.ToInt32(move[2]) - 1, 0,false);}else{return false;}}}}
 
             }

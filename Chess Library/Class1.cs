@@ -1,8 +1,8 @@
-﻿string[] aaaa = new string[64];
-Array.Fill(aaaa, "");
-aaaa[2] = "P";
+﻿//string[] aaaa = new string[64];
+//Array.Fill(aaaa, "");
+//aaaa[2] = "P";
 
-Chess_Library.ChessBot Bot = new Chess_Library.ChessBot(aaaa,false);
+//Chess_Library.ChessBot Bot = new Chess_Library.ChessBot(aaaa,false);
 
 /*if (Bot.Move("a4"))
 {
@@ -12,4 +12,6 @@ else
 {
     Console.WriteLine("Move was not successful");
 }*/
-Bot.Move("a3");
+string a = "xp";
+Console.WriteLine(a);
+Console.WriteLine(a.Split("x").ToString());
