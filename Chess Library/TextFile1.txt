@@ -1,0 +1,27 @@
+﻿int from, to, piecenum, topiecenum;
+            bool take = false;
+            if (move.Contains(Convert.ToChar("=")))
+            {
+                topiecenum = SAN_Tools.PieceToNum(move.Split('=')[1][0]); // Work out which piece it will become
+                move = move.Split('=')[0];// Remove the = piece from the end
+            }
+            if (move.Contains(Convert.ToChar("x")))
+            {
+                string[] sects = move.Split('x');
+                take = true;
+                to = 8 * SAN_Tools.NumForRank(sects[1][0]) + Convert.ToInt32(sects[1][1]);
+                if (Convert.ToInt32(sects[1][1]) > 0)
+                {
+                    if (sects[0] == "")
+                    {
+                        if (to - 8 + (PlayerMove ? -1 : 1) > 0 & boardLayout[to - 8 + (PlayerMove ? -1 : 1)] == SAN_Tools.GetMovePiece(0, PlayerMove))
+                        {
+
+                        }
+                        if (to + 8 + (PlayerMove ? -1 : 1) > 0 & boardLayout[to + 8 + (PlayerMove ? -1 : 1)] == SAN_Tools.GetMovePiece(0, PlayerMove))
+                        {
+
+                        }
+                    }
+                }
+            }

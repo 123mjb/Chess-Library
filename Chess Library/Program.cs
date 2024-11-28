@@ -110,36 +110,7 @@
             }
             bool PawnMove(string move)
             {
-                int from, to, piecenum,topiecenum;
-                bool take=false;
-                if (move.Contains(Convert.ToChar("="))){
-                    topiecenum = piecetonum(move.Split('=')[1][0]);
-                }
-                if (move.Contains(Convert.ToChar("x"))) {
-                    string[] sects = move.Split('x');
-                    sects[1] = sects[1].Split('=')[0];
-                    take = true;
-                    to = 8*num(sects[1][0])+Convert.ToInt32(sects[1][1]);
-                    if (Convert.ToInt32(sects[1][1]) > 0)
-                    {
-                        if (sects[0] == "")
-                        {
-                            if (to-8 + (PlayerMove?-1:1)>0 & boardLayout[to - 8 + (PlayerMove ? -1 : 1)] == getmovepiece(0))
-                            {
-
-                            }
-                            if (to + 8 + (PlayerMove ? -1 : 1) > 0 & boardLayout[to + 8 + (PlayerMove ? -1 : 1)] == getmovepiece(0))
-                            {
-
-                            }
-                        }
-                    }
-                }
                 
-
-
-
-                return MoveCheckerAndDoer(take)
                 //if (move.Contains(Convert.ToChar("="))){if (move.Contains(Convert.ToChar("x"))){string[] movesplit = move.Split("x");}else{if (move.Length > 2){}else{if (Convert.ToInt32(move[2]) > 1){return MoveCheckerAndDoer(8*num(move[0].ToString()) + Convert.ToInt32(move[2]) - 1, num(move[0].ToString()) + Convert.ToInt32(move[2]) - 1, 0,false);}else{return false;}}}}
 
             }
