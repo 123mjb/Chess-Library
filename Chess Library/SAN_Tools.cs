@@ -9,13 +9,13 @@ namespace SAN_Tools
     internal class SAN_Tools
     {
         readonly static public string[][] pieces = new string[6][] { new string[2] { "P", "p" }, new string[2] { "K", "k" }, new string[2] { "Q", "q" }, new string[2] { "N", "n" }, new string[2] { "B", "b" }, new string[2] { "R", "r" } };
-        readonly static public string[] Ranks = new string[] { "a", "b", "c", "d", "e", "f", "g", "h" };
-        readonly static public string[] Files = new string[] { "1", "2", "3", "4", "5", "6", "7", "8" };
+        readonly static public char[] Files = new char[] { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h' };
+        readonly static public char[] Ranks = new char[] { '1', '2', '3', '4', '5', '6', '7', '8' };
 
 
         public static string GetMovePiece(int pieceNum,bool PlayerMove)
         {
-            return pieces[pieceNum][PlayerMove ? 0 : 1];
+            return pieces[pieceNum][PlayerMove ? 1 : 0];
         }
 
         public static int NumForRank(char ForR)
@@ -64,13 +64,18 @@ namespace SAN_Tools
             {
                 Board[place] = piece;
             }
+            public string this[int index]
+            {
+                get { return Board[index]; }
+            }
         }
 
         public class MoveDetails
         {
-            bool Result;
-            int From;
-            int To;
+            private readonly bool Result;
+            public readonly int From;
+            public readonly int To;
+            public int PieceToBeMovedNum = -1;
             public MoveDetails(bool worked,int from, int to)
             {
                 Result = worked;
@@ -81,6 +86,11 @@ namespace SAN_Tools
             {
                 Result=worked;
             }
+            public bool Outcome()
+            {
+                return Result;
+            }
+            
         }
     }
 }
