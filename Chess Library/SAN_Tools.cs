@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Chess_Library
+namespace SAN_Tools
 {
     internal class SAN_Tools
     {
@@ -48,5 +48,39 @@ namespace Chess_Library
             };
         }
 
+        public class ChessBoard
+        {
+            private string[] Board;
+            public ChessBoard(string[] peices)
+            {
+                Board = peices;
+            }
+            public string[] ToArray()
+            {
+                return Board;
+            }
+            
+            public void Set(int place, string piece)
+            {
+                Board[place] = piece;
+            }
+        }
+
+        public class MoveDetails
+        {
+            bool Result;
+            int From;
+            int To;
+            public MoveDetails(bool worked,int from, int to)
+            {
+                Result = worked;
+                From = from;
+                To = to;
+            }
+            public MoveDetails(bool worked)
+            {
+                Result=worked;
+            }
+        }
     }
 }

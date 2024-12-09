@@ -1,9 +1,12 @@
-﻿namespace Chess_Library
+﻿using static SAN_Tools.SAN_Tools;
+
+namespace Chess_Library
 {
+    
     internal class ChessBot
     {
         private bool window;
-        private string[] boardLayout;
+        private ChessBoard chessBoard;
         private bool PlayerMove;
 
         public ChessBot(string[] pieces, bool testinterface = false)
@@ -11,10 +14,11 @@
             PlayerMove = false;
             if (pieces.Length != 64)
             {
-                throw new ArgumentException("Pieces is not a standard chess board size of 64.");
+                throw new ArgumentException("Pieces is not a standard chess board size of 8*8.");
             }
             window = testinterface;
-            boardLayout = pieces;
+            chessBoard = new ChessBoard(pieces);
+            chessBoard.ToArray();
         }
         /// <summary>
         /// Method <c>Move</c> tries to do the move supplied.
@@ -29,12 +33,12 @@
             {
                 if (!taking)
                 {
-                    if (boardLayout[from] == SAN_Tools.GetMovePiece(piecenum,PlayerMove))
+                    if (chessBoard.ToArray()[from] == GetMovePiece(piecenum,PlayerMove))
                     {
-                        if (boardLayout[to] == "")
+                        if (chessBoard.ToArray()[to] == "")
                         {
-                            boardLayout[from] = "";
-                            boardLayout[to] = SAN_Tools.GetMovePiece(0,PlayerMove);
+                            chessBoard.Set(from , "");
+                            chessBoard.Set(to, GetMovePiece(0, PlayerMove));
                         }
                         else { return false; }
                     }
