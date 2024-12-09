@@ -1,77 +1,24 @@
-﻿namespace Chess_Library
+﻿using static SAN_Tools.SAN_Tools;
+
+namespace Chess_Library
 {
+    
     internal class ChessBot
     {
         private bool window;
-        private string[] boardLayout;
+        private ChessBoard chessBoard;
         private bool PlayerMove;
-        private string[][] pieces = new string[6][] { new string[2] { "P", "p" }, new string[2] { "K", "k" }, new string[2] { "Q", "q" }, new string[2] { "N", "n" }, new string[2] { "B", "b" }, new string[2] { "R", "r" } };
-        static int Piecetonum(char peice)
-        {
-            switch (peice.ToString().ToLower())
-            {
-                case "p":
-                    return 1;
-                case "k":
-                    return 2;
-                case "q":
-                    return 3;
-                case "n":
-                    return 4;
-                case "b":
-                    return 5;
-                case "r":
-                    return 6;
-                default: return 0;
 
-            }
-        }
-        static int RankToNumber(char Rank)
-        {
-            switch (Rank.ToString())
-            {
-                case "a":
-                    return 0;
-                case "b":
-                    return 1;
-                case "c":
-                    return 2;
-                case "d":
-                    return 3;
-                case "e":
-                    return 4;
-                case "f":
-                    return 5;
-                case "g":
-                    return 6;
-                case "h":
-                    return 7;
-                default:
-                    return -1;
-            }
-        }
-        static string NumberToRank(int num)
-        {
-            return new string[] { "a", "b", "c", "d", "e", "f", "g", "h" }[num];
-        }
-        string NumberToNotation(int numloc)
-        {
-            var a = Math.DivRem(numloc, 8);
-            return NumberToRank(a.Quotient + 1) + (a.Remainder + 1).ToString();
-        }
-        string getmovepiece(int pieceNum)
-        {
-            return pieces[pieceNum][PlayerMove ? 0 : 1];
-        }
         public ChessBot(string[] pieces, bool testinterface = false)
         {
             PlayerMove = false;
             if (pieces.Length != 64)
             {
-                throw new ArgumentException("Pieces is not a standard chess board size of 64.");
+                throw new ArgumentException("Pieces is not a standard chess board size of 8*8.");
             }
             window = testinterface;
-            boardLayout = pieces;
+            chessBoard = new ChessBoard(pieces);
+            chessBoard.ToArray();
         }
         /// <summary>
         /// Method <c>Move</c> tries to do the move supplied.
@@ -80,93 +27,18 @@
         /// <returns>Whether the move is valid or not.</returns>
         public bool Move(string move)
         {
-            int quot(int left, int right)
-            {
-                return Math.DivRem(left, right).Quotient;
-            }
-            switch (move[0].ToString())
-            {
-                case "K":
-                    KingMove(move);
-                    break;
-                case "N":
-                    KnightMove(move);
-                    break;
-                default:
-                    PawnMove(move);
-                    break;
-            }
 
-            bool BishopMove(string move)
-            {
-
-            }
-            bool RookMove(string move)
-            {
-
-            }
-            bool QueenMove(string move)
-            {
-
-            }
-            bool KnightMove(string move)
-            {
-
-            }
-            bool KingMove(string move)
-            {
-
-            }
-            bool PawnMove(string move)
-            {
-                int from, to, topiecenum = -1;
-                bool take = false;
-                if (move.Contains(Convert.ToChar("=")))
-                {
-                    topiecenum = Piecetonum(move.Split('=')[1][0]);
-                }
-                if (move.Contains(Convert.ToChar("x")))
-                {
-                    string[] sects = move.Split('x');
-                    sects[1] = sects[1].Split('=')[0];
-                    take = true;
-                    to = 8 * RankToNumber(sects[1][0]) + Convert.ToInt32(sects[1][1]);
-                    if (Convert.ToInt32(sects[1][1]) > 0)
-                    {
-                        if (sects[0] == "")
-                        {
-                            if ((PlayerMove ? (quot(to - 9, 8) == quot(to, 8) + -1) : (quot(to - 7, 8) == quot(to, 8) - 1)) & to - 8 + (PlayerMove ? -1 : 1) > 0 & boardLayout[to - 8 + (PlayerMove ? -1 : 1)] == getmovepiece(0))
-                            {
-                                from = to - 8 + (PlayerMove ? -1 : 1);
-                            }
-                            else if ((PlayerMove ? (quot(to + 7, 8) == quot(to, 8) + 1) : (quot(to + 9, 8) == quot(to, 8) + 1)) & to + 8 + (PlayerMove ? -1 : 1) < 64 & boardLayout[to + 8 + (PlayerMove ? -1 : 1)] == getmovepiece(0))
-                            {
-                                from = to + 8 + (PlayerMove ? -1 : 1);
-                            }
-                            else { return false; }
-                        }
-
-                    }
-                }
-                else if ()
-
-
-
-
-                return MoveCheckerAndDoer(from,to,0,topiecenum,take)
-                //if (move.Contains(Convert.ToChar("="))){if (move.Contains(Convert.ToChar("x"))){string[] movesplit = move.Split("x");}else{if (move.Length > 2){}else{if (Convert.ToInt32(move[2]) > 1){return MoveCheckerAndDoer(8*num(move[0].ToString()) + Convert.ToInt32(move[2]) - 1, num(move[0].ToString()) + Convert.ToInt32(move[2]) - 1, 0,false);}else{return false;}}}}
-
-            }
-            bool MoveCheckerAndDoer(int from, int to, int piecenum, int topiecenum, bool taking)
+            return PawnMovement.PawnCheck(move);
+            bool MoveCheckerAndDoer(int from, int to, int piecenum,int topiecenum, bool taking)
             {
                 if (!taking)
                 {
-                    if (boardLayout[from] == getmovepiece(piecenum))
+                    if (chessBoard.ToArray()[from] == GetMovePiece(piecenum,PlayerMove))
                     {
-                        if (boardLayout[to] == "")
+                        if (chessBoard.ToArray()[to] == "")
                         {
-                            boardLayout[from] = "";
-                            boardLayout[to] = getmovepiece(0);
+                            chessBoard.Set(from , "");
+                            chessBoard.Set(to, GetMovePiece(0, PlayerMove));
                         }
                         else { return false; }
                     }
@@ -174,8 +46,9 @@
                 }
                 else
                 {
-
+                    return false;
                 }
+                return true;
             }
 
         }
