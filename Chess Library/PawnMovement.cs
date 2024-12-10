@@ -22,23 +22,33 @@ namespace Chess_Library
         }
         public static MoveDetails UpgradeChecker(ChessBoard chessBoard, string move, bool PlayerMove)
         {
-            MoveDetails forwardMove = ForwardMove(chessBoard, move, PlayerMove);
-            if (Math.DivRem(forwardMove.To,8).Remainder == (PlayerMove ? 8 : 0){
-                forwardMove.PieceToBeMovedNum = PieceToNum(move[^1]);
+            string[] movesplit = move.Split('=');
+
+            MoveDetails forwardMove = ForwardMove(chessBoard, movesplit[0], PlayerMove);
+            if (move.Contains('='))
+            {
+                if (Math.DivRem(forwardMove.To, 8).Remainder == (PlayerMove ? 8 : 0))
+                {
+                    forwardMove.PieceToBeMovedNum = PieceToNum(move[^1]);
+                }
             }
             if (forwardMove.Outcome())
             {
                 return forwardMove;
             }
 
-            MoveDetails diagonalTake = DiagonalTake(chessBoard, move, PlayerMove);
-            if (Math.DivRem(forwardMove.To, 8).Remainder == (PlayerMove ? 8 : 0){
+            MoveDetails diagonalTake = DiagonalTake(chessBoard, movesplit[0], PlayerMove);
+            if (Math.DivRem(forwardMove.To, 8).Remainder == (PlayerMove ? 8 : 0)){
                 forwardMove.PieceToBeMovedNum = PieceToNum(move[^1]);
             }
             if (diagonalTake.Outcome())
             {
                 return diagonalTake;
             }
+
+
+
+            return new MoveDetails(false);
         }
 
         public static MoveDetails ForwardMove(ChessBoard chessBoard, string move, bool PlayerMove)
