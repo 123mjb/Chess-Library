@@ -111,7 +111,9 @@ namespace Chess_Library
             {
                 if (PlayerMove) // Black
                 {
-                    MoveDetails lessfile = new();
+                    int leftloc = MoveNum(move) +(PlayerMove?-9:-7);
+                    int rightloc = MoveNum(move) + (PlayerMove?7:9);
+                    MoveDetails lessfile = new(Math.Abs(NumForRank(move[0])-Math.DivRem( leftloc,8).Quotient)==1&&leftloc>=0&&leftloc<=63&&);
                     MoveDetails morefile = new(false);
                 }
                 else // White

@@ -12,7 +12,10 @@ namespace SAN_Tools
         readonly static public char[] Files = new char[] { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h' };
         readonly static public char[] Ranks = new char[] { '1', '2', '3', '4', '5', '6', '7', '8' };
 
-
+        public static int MoveNum(string move)
+        {
+            return NumForRank(move[0]) * 8 + Convert.ToInt32(move[1]);
+        }
         public static string GetMovePiece(int pieceNum,bool PlayerMove)
         {
             return pieces[pieceNum][PlayerMove ? 1 : 0];
