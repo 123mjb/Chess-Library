@@ -109,16 +109,17 @@ namespace Chess_Library
 
             if (Files.Contains(move[0]))
             {
-                if (PlayerMove) // Black
+                int leftloc = MoveNum(move) + (PlayerMove ? -9 : -7);
+                int rightloc = MoveNum(move) + (PlayerMove ? 7 : 9);
+                if (Math.Abs(NumForRank(move[0]) - Math.DivRem(leftloc, 8).Quotient) == 1 && leftloc >= 0 && leftloc <= 63) // Black
                 {
-                    int leftloc = MoveNum(move) +(PlayerMove?-9:-7);
-                    int rightloc = MoveNum(move) + (PlayerMove?7:9);
-                    MoveDetails lessfile = new(Math.Abs(NumForRank(move[0])-Math.DivRem( leftloc,8).Quotient)==1&&leftloc>=0&&leftloc<=63&&);
-                    MoveDetails morefile = new(false);
+                    if ()
+                    MoveDetails lessfile = new();
+                    MoveDetails morefile = new();
                 }
                 else // White
                 {
-
+                    return new MoveDetails(false);
                 }
             }
         }
