@@ -93,6 +93,10 @@ namespace SAN_Tools
             {
                 return Result;
             }
+            public static bool operator &(MoveDetails a,MoveDetails b)
+            {
+                return a.Outcome() && b.Outcome();
+            }
             
         }
     }

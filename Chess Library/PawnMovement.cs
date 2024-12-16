@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using static SAN_Tools.SAN_Tools;
+﻿using static SAN_Tools.SAN_Tools;
 
 namespace Chess_Library
 {
@@ -15,9 +9,9 @@ namespace Chess_Library
             return Ranks.Contains(move[0]) || Files.Contains(move[0]);
         }
 
-        public static MoveDetails PawnMove(ChessBoard chessBoard,string move,bool PlayerMove)
+        public static MoveDetails PawnMove(ChessBoard chessBoard, string move, bool PlayerMove)
         {
-            
+
 
         }
         public static MoveDetails UpgradeChecker(ChessBoard chessBoard, string move, bool PlayerMove)
@@ -38,7 +32,8 @@ namespace Chess_Library
             }
 
             MoveDetails diagonalTake = DiagonalTake(chessBoard, movesplit[0], PlayerMove);
-            if (Math.DivRem(forwardMove.To, 8).Remainder == (PlayerMove ? 8 : 0)){
+            if (Math.DivRem(forwardMove.To, 8).Remainder == (PlayerMove ? 8 : 0))
+            {
                 forwardMove.PieceToBeMovedNum = PieceToNum(move[^1]);
             }
             if (diagonalTake.Outcome())
@@ -53,7 +48,7 @@ namespace Chess_Library
 
         public static MoveDetails ForwardMove(ChessBoard chessBoard, string move, bool PlayerMove)
         {
-            if (move.Contains('x')){ return new MoveDetails(false);} // Cant be a forward move if it takes a piece
+            if (move.Contains('x')) { return new MoveDetails(false); } // Cant be a forward move if it takes a piece
 
             if (Ranks.Contains(move[0])) // if ranks are first then go from there
             {
@@ -87,14 +82,14 @@ namespace Chess_Library
                             if (_count > 1) { return new MoveDetails(false); }
                         }
                     }
-                    if (_count == 0 ){ return new MoveDetails(false); }
+                    if (_count == 0) { return new MoveDetails(false); }
                     return temp;
                 }
             }
 
             if (Files.Contains(move[0])) // if files are first then across the file behind it based on current player move
             {
-                if (chessBoard[NumForRank(move[0]) * 8 + Convert.ToInt32(move[1]) + (PlayerMove?-1:1)] == GetMovePiece(0, PlayerMove))
+                if (chessBoard[NumForRank(move[0]) * 8 + Convert.ToInt32(move[1]) + (PlayerMove ? -1 : 1)] == GetMovePiece(0, PlayerMove))
                 {
                     return new MoveDetails(true, NumForRank(move[0]) * 8 + Convert.ToInt32(move[1]) + (PlayerMove ? -1 : 1), NumForRank(move[0]) * 8 + Convert.ToInt32(move[1]));
                 }
@@ -106,21 +101,41 @@ namespace Chess_Library
         public static MoveDetails DiagonalTake(ChessBoard chessBoard, string move, bool PlayerMove)
         {
             if (!move.Contains('x')) { return new MoveDetails(false); }
+            string startfile = move.Split('x')[0];
+            string endsquare = move.Split('x')[1];
 
-            if (Files.Contains(move[0]))
+
+            int leftloc = MoveNum(move) + (PlayerMove ? -9 : -7);
+            int rightloc = MoveNum(move) + (PlayerMove ? 7 : 9);
+            MoveDetails lessfile= new(false);
+            MoveDetails morefile= new(false);
+            if (Math.Abs(NumForRank(move[0]) - Math.DivRem(leftloc, 8).Quotient) == 1 & leftloc >= 0 & leftloc <= 63) // Black
             {
-                int leftloc = MoveNum(move) + (PlayerMove ? -9 : -7);
-                int rightloc = MoveNum(move) + (PlayerMove ? 7 : 9);
-                if (Math.Abs(NumForRank(move[0]) - Math.DivRem(leftloc, 8).Quotient) == 1 && leftloc >= 0 && leftloc <= 63) // Black
+                if (chessBoard[leftloc] == GetMovePiece(0, PlayerMove))
                 {
-                    if ()
-                    MoveDetails lessfile = new();
-                    MoveDetails morefile = new();
+
+                    lessfile = new(true, leftloc, MoveNum(move));
+                
                 }
-                else // White
+            }
+            if (Math.Abs(NumForRank(move[0]) - Math.DivRem(rightloc, 8).Quotient) == 1 & rightloc >= 0 & rightloc <= 63) // Black
+            {
+                if (chessBoard[rightloc] == GetMovePiece(0, PlayerMove))
                 {
-                    return new MoveDetails(false);
+                    morefile = new(true, rightloc, MoveNum(move));
                 }
+            }
+            if (lessfile & morefile)
+            {
+                return new MoveDetails(false);
+            }
+            else if (morefile.Outcome())
+            {
+                return morefile;
+            }
+            else
+            {
+                return lessfile;
             }
         }
     }
