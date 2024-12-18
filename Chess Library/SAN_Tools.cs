@@ -99,5 +99,26 @@ namespace SAN_Tools
             }
             
         }
+        public class Move
+        {
+            public int Location;
+            public Move(int location)
+            {
+                Location = location;
+            }
+            public char File => Files[Math.DivRem(Location,8).Quotient]
+
+            public static Move operator +(Move Move, int change)
+            {
+                return new Move(Move.Location+change);
+            }
+
+            public static explicit operator int(Move move)
+            {
+                return move.Location;
+            }
+
+
+        }
     }
 }

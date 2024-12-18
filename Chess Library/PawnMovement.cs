@@ -105,24 +105,24 @@ namespace Chess_Library
             string endsquare = move.Split('x')[1];
 
 
-            int leftloc = MoveNum(move) + (PlayerMove ? -9 : -7);
-            int rightloc = MoveNum(move) + (PlayerMove ? 7 : 9);
-            MoveDetails lessfile= new(false);
-            MoveDetails morefile= new(false);
-            if (Math.Abs(NumForRank(move[0]) - Math.DivRem(leftloc, 8).Quotient) == 1 & leftloc >= 0 & leftloc <= 63) // Black
+            Move leftloc = new Move(MoveNum(endsquare)) + (PlayerMove ? -9 : -7);
+            Move rightloc = new Move(MoveNum(endsquare)) + (PlayerMove ? 7 : 9);
+            MoveDetails lessfile = new(false);
+            MoveDetails morefile = new(false);
+            if (Math.Abs(NumForRank(move[0]) - Math.DivRem((int)leftloc, 8).Quotient) == 1 & (int)leftloc >= 0 & (int)leftloc <= 63) // Black
             {
-                if (chessBoard[leftloc] == GetMovePiece(0, PlayerMove))
+                if (chessBoard[(int)leftloc] == GetMovePiece(0, PlayerMove))
                 {
 
-                    lessfile = new(true, leftloc, MoveNum(move));
-                
+                    lessfile = new(true, (int)leftloc, MoveNum(move));
+
                 }
             }
-            if (Math.Abs(NumForRank(move[0]) - Math.DivRem(rightloc, 8).Quotient) == 1 & rightloc >= 0 & rightloc <= 63) // Black
+            if (Math.Abs(NumForRank(move[0]) - Math.DivRem((int)rightloc, 8).Quotient) == 1 & (int)rightloc >= 0 & (int)rightloc <= 63) // Black
             {
-                if (chessBoard[rightloc] == GetMovePiece(0, PlayerMove))
+                if (chessBoard[(int)rightloc] == GetMovePiece(0, PlayerMove))
                 {
-                    morefile = new(true, rightloc, MoveNum(move));
+                    morefile = new(true, (int)rightloc, MoveNum(move));
                 }
             }
             if (lessfile & morefile)

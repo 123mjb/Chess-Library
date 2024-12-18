@@ -2,7 +2,7 @@
 
 namespace Chess_Library
 {
-    
+
     internal class ChessBot
     {
         private bool window;
@@ -29,15 +29,15 @@ namespace Chess_Library
         {
 
             return PawnMovement.PawnCheck(move);
-            bool MoveCheckerAndDoer(int from, int to, int piecenum,int topiecenum, bool taking)
+            bool MoveCheckerAndDoer(int from, int to, int piecenum, int topiecenum, bool taking)
             {
                 if (!taking)
                 {
-                    if (chessBoard.ToArray()[from] == GetMovePiece(piecenum,PlayerMove))
+                    if (chessBoard.ToArray()[from] == GetMovePiece(piecenum, PlayerMove))
                     {
                         if (chessBoard.ToArray()[to] == "")
                         {
-                            chessBoard.Set(from , "");
+                            chessBoard.Set(from, "");
                             chessBoard.Set(to, GetMovePiece(0, PlayerMove));
                         }
                         else { return false; }
