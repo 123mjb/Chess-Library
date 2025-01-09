@@ -89,13 +89,11 @@ namespace SAN_Tools
             {
                 Result=worked;
             }
-            public bool Outcome()
-            {
-                return Result;
-            }
+            public bool Outcome => Result;
+
             public static bool operator &(MoveDetails a,MoveDetails b)
             {
-                return a.Outcome() && b.Outcome();
+                return a.Outcome && b.Outcome;
             }
             
         }

@@ -24,9 +24,27 @@ namespace Chess_Library
         }
         private static MoveDetails diagonallymove(ChessBoard chessBoard, string to)
         {
-
+            MoveDetails c1 = checker(chessBoard, MoveNum(to),1);
+            MoveDetails c2 = checker(chessBoard, MoveNum(to), -1);
+            if (c1 & c2)
+            {
+                return new MoveDetails(false);
+            }
+            else if (c1.Outcome)
+            {
+                return c1;
+            }
+            return c2;
         }
         private static MoveDetails checker(ChessBoard chessBoard, int from, int move)
+        {
+            
+        }
+        private static MoveDetails up(ChessBoard chessBoard, int from, int move)
+        {
+
+        }
+        private static MoveDetails down(ChessBoard chessBoard, int from, int move)
         {
 
         }

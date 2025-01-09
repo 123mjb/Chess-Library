@@ -129,7 +129,7 @@ namespace Chess_Library
             {
                 return new MoveDetails(false);
             }
-            else if (morefile.Outcome())
+            else if (morefile.Outcome)
             {
                 return morefile;
             }
