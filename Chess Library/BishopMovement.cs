@@ -52,7 +52,7 @@ namespace Chess_Library
         }
         private static MoveDetails up(ChessBoard chessBoard, int from, bool move, bool Playermove)
         {
-            for (int i=from; (chessBoard[i]==GetMovePiece(6,Playermove)|| chessBoard[i] == ""); i += move ? 7 : -9)
+            for (int i=from; (chessBoard[i]==GetMovePiece(6,Playermove)|| chessBoard[i] == "")&&; i += move ? 7 : -9)
             {
                 
             }
