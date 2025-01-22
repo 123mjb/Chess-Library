@@ -8,24 +8,24 @@ namespace Chess_Library
         {
             string[] editedmove = move.Split('x');
 
-            MoveDetails actualmove = diagonallymove(chessBoard, editedmove[0], editedmove[1]);
+            MoveDetails actualmove = diagonallymove(chessBoard, editedmove[0], editedmove[1],Playermove);
         }
         private static MoveDetails diagonallymove(ChessBoard chessBoard, string to, string from,bool Playermove)
         {
             if (NumForRank(from[0]) > NumForRank(to[0]))
             {
-                return checker(chessBoard, MoveNum(to), true);
+                return checker(chessBoard, MoveNum(to), true,Playermove);
             }
             else if (NumForRank(from[0]) < NumForRank(to[0]))
             {
-                return checker(chessBoard, MoveNum(to), false);
+                return checker(chessBoard, MoveNum(to), false,Playermove);
             }
             else return new MoveDetails(false);
         }
         private static MoveDetails diagonallymove(ChessBoard chessBoard, string to, bool Playermove)
         {
-            MoveDetails c1 = checker(chessBoard, MoveNum(to),true);
-            MoveDetails c2 = checker(chessBoard, MoveNum(to), false);
+            MoveDetails c1 = checker(chessBoard, MoveNum(to),true, Playermove);
+            MoveDetails c2 = checker(chessBoard, MoveNum(to), false, Playermove);
             if (c1 & c2)
             {
                 return new MoveDetails(false);

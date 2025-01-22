@@ -105,6 +105,9 @@ namespace SAN_Tools
                 Location = location;
             }
             public char File => Files[Math.DivRem(Location, 8).Quotient];
+            public int FileNum => Math.DivRem(Location, 8).Quotient;
+
+            public int Rank => Math.DivRem(Location, 8).Remainder;
 
             public static Move operator +(Move Move, int change)
             {
