@@ -19,22 +19,57 @@ namespace Chess_Library
                     editedmove = new string[2] { (string)temp[0].Take(temp[0].Length - 2), (string)temp[0].Skip(temp[0].Length - 2) };
                 }
 
-                MoveDetails actualmove = diagonallymove(chessBoard, editedmove[0], editedmove[1], Playermove);//CHECK THAT TO AND FROM ARE CORRECT
+                MoveDetails actualmove;
+
+                if (editedmove.Length > 1)
+                {
+                    actualmove = diagonallymove(chessBoard, editedmove[1], editedmove[0], Playermove);//CHECK THAT TO AND FROM ARE CORRECT
+                }
+                else
+                {
+                    actualmove = diagonallymove(chessBoard, editedmove[0],Playermove);
+                }
+
+
                 return actualmove;
             }
             else return new MoveDetails(false);
         }
         private static MoveDetails diagonallymove(ChessBoard chessBoard, string to, string from,bool Playermove)
         {
-            if (NumForRank(from[0]) > NumForRank(to[0]))
-            {
-                return checker(chessBoard,new Move(MoveNum(to)), true,Playermove);
+            MoveDetails M;
+            if (from.Length<2 & IsFile(from)) {
+                if (NumForFile(from[0]) > NumForFile(to[0]))
+                {
+                    M = checker(chessBoard, new Move(MoveNum(to)), true, Playermove);
+                }
+                else if (NumForFile(from[0]) < NumForFile(to[0]))
+                {
+                    M =  checker(chessBoard, new Move(MoveNum(to)), false, Playermove);
+                }
+                else return new MoveDetails(false);
+
+                if (!M.Outcome) return M;
+
+                if (M.From.File == from[0])
+                {
+                    return M;
+                }
+                else return new MoveDetails(false);
             }
-            else if (NumForRank(from[0]) < NumForRank(to[0]))
+            else if (!IsFile(from))
             {
-                return checker(chessBoard,new Move(MoveNum(to)), false,Playermove);
+                if (Convert.ToInt32(from) > Convert.ToInt32(to[1]))
+                {
+                    MoveDetails M1 = up(chessBoard, (Move)MoveNum(to), true, Playermove);
+                    MoveDetails M2 = up(chessBoard, (Move)MoveNum(to), true, Playermove);
+                }
             }
-            else return new MoveDetails(false);
+            else
+            {
+
+            }
+            
         }
         private static MoveDetails diagonallymove(ChessBoard chessBoard, string to, bool Playermove)
         {

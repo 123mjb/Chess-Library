@@ -14,14 +14,14 @@ namespace SAN_Tools
 
         public static int MoveNum(string move)
         {
-            return NumForRank(move[0]) * 8 + Convert.ToInt32(move[1]);
+            return NumForFile(move[0]) * 8 + Convert.ToInt32(move[1]);
         }
         public static string GetMovePiece(int pieceNum,bool PlayerMove)
         {
             return pieces[pieceNum][PlayerMove ? 1 : 0];
         }
 
-        public static int NumForRank(char ForR)
+        public static int NumForFile(char ForR)
         {
             return ForR.ToString() switch
             {
@@ -51,6 +51,11 @@ namespace SAN_Tools
             };
         }
 
+        public static bool IsFile(string potentialfile)
+        {
+
+        }
+
         public class ChessBoard
         {
             private string[] Board;
@@ -76,14 +81,14 @@ namespace SAN_Tools
         public class MoveDetails
         {
             private readonly bool Result;
-            public readonly int From;
-            public readonly int To;
+            public readonly Location? From;
+            public readonly Location? To;
             public int PieceToBeMovedNum = -1;
             public MoveDetails(bool worked,int from, int to)
             {
                 Result = worked;
-                From = from;
-                To = to;
+                From = (Location)from;
+                To = (Location)to;
             }
             public MoveDetails(bool worked)
             {
@@ -128,7 +133,15 @@ namespace SAN_Tools
                 return move.Location;
             }
 
+            public static explicit operator Move(int num)
+            {
+                return (Move)num;
+            }
 
+            public static explicit operator Move(string loc)
+            {
+             
+            }
         }
     }
 }
