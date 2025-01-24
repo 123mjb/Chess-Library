@@ -97,6 +97,14 @@ namespace SAN_Tools
             }
             
         }
+        public class Location : Move
+        {
+            public Location(int location) : base(location)
+            {
+                Location = location;
+            }
+        }
+
         public class Move
         {
             public int Location;
@@ -108,6 +116,7 @@ namespace SAN_Tools
             public int FileNum => Math.DivRem(Location, 8).Quotient;
 
             public int Rank => Math.DivRem(Location, 8).Remainder;
+            public string FileRank => File+Rank.ToString();
 
             public static Move operator +(Move Move, int change)
             {

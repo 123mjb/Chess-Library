@@ -4,11 +4,25 @@ namespace Chess_Library
 {
     internal class BishopMovement
     {
-        static void Mover(ChessBoard chessBoard, string move, bool Playermove)
+        static MoveDetails Mover(ChessBoard chessBoard, string move, bool Playermove)
         {
-            string[] editedmove = move.Split('x');
+            if (move.StartsWith('B') || move.StartsWith('b'))
+            {
+                move.Remove(0);
+                if (move.EndsWith('+')) move.Remove(move.Length-1);
+                
+                string[] editedmove = move.Split('x');
 
-            MoveDetails actualmove = diagonallymove(chessBoard, editedmove[0], editedmove[1],Playermove);
+                if (editedmove.Length < 2& editedmove[0].Length>2)
+                {
+                    string[] temp = editedmove;
+                    editedmove = new string[2] { (string)temp[0].Take(temp[0].Length - 2), (string)temp[0].Skip(temp[0].Length - 2) };
+                }
+
+                MoveDetails actualmove = diagonallymove(chessBoard, editedmove[0], editedmove[1], Playermove);//CHECK THAT TO AND FROM ARE CORRECT
+                return actualmove;
+            }
+            else return new MoveDetails(false);
         }
         private static MoveDetails diagonallymove(ChessBoard chessBoard, string to, string from,bool Playermove)
         {
