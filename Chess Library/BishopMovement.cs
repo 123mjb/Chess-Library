@@ -78,7 +78,7 @@ namespace Chess_Library
             }
             else
             {
-
+                // Returns of details needs to be handled better than now as it removes case of one side having 1 and other having two as will accept two
             }
             
         }
