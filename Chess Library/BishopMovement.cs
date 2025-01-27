@@ -62,7 +62,18 @@ namespace Chess_Library
                 if (Convert.ToInt32(from) > Convert.ToInt32(to[1]))
                 {
                     MoveDetails M1 = up(chessBoard, (Move)MoveNum(to), true, Playermove);
-                    MoveDetails M2 = up(chessBoard, (Move)MoveNum(to), true, Playermove);
+                    MoveDetails M2 = up(chessBoard, (Move)MoveNum(to), false, Playermove);
+                    if (M1 & M2) { return Basicfalse; }
+                    else if (M1) { return M1; }
+                    return M2;
+                }
+                else if (Convert.ToInt32(from) < Convert.ToInt32(to[1]))
+                {
+                    MoveDetails M1 = down(chessBoard, (Move)MoveNum(to), true, Playermove);
+                    MoveDetails M2 = down(chessBoard, (Move)MoveNum(to), false, Playermove);
+                    if (M1 & M2) { return Basicfalse; }
+                    else if (M1) { return M1; }
+                    return M2;
                 }
             }
             else

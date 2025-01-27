@@ -11,6 +11,7 @@ namespace SAN_Tools
         readonly static public string[][] pieces = new string[6][] { new string[2] { "P", "p" }, new string[2] { "K", "k" }, new string[2] { "Q", "q" }, new string[2] { "N", "n" }, new string[2] { "B", "b" }, new string[2] { "R", "r" } };
         readonly static public char[] Files = new char[] { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h' };
         readonly static public char[] Ranks = new char[] { '1', '2', '3', '4', '5', '6', '7', '8' };
+        readonly static public MoveDetails Basicfalse = new MoveDetails(false);
 
         public static int MoveNum(string move)
         {
@@ -53,7 +54,11 @@ namespace SAN_Tools
 
         public static bool IsFile(string potentialfile)
         {
-
+            if (NumForFile(potentialfile[0]) != -1)
+            {
+                return true;
+            }
+            return false;
         }
 
         public class ChessBoard
@@ -100,6 +105,11 @@ namespace SAN_Tools
             {
                 return a.Outcome && b.Outcome;
             }
+
+            public static implicit operator bool (MoveDetails movedetail)
+            {
+                return movedetail.Outcome;
+            }
             
         }
         public class Location : Move
@@ -135,12 +145,12 @@ namespace SAN_Tools
 
             public static explicit operator Move(int num)
             {
-                return (Move)num;
+                return new Move(num);
             }
 
             public static explicit operator Move(string loc)
             {
-             
+                return new Move(MoveNum(loc));
             }
         }
     }
